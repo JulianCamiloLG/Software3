@@ -72,10 +72,11 @@
                 <prop key="getTodasAsesorias.htm">controladoraGetAsesorias</prop>
                 <prop key="getAsesoriasEstudiante.htm">controladoraGetAsesorias</prop>
                 
-                <prop key="getRespuestaAsesoria.htm">controladoraResponderAsesoria</prop>
-                <prop key="getRespuestaAsignatura.htm">controladoraResponderAsesoria</prop>
-                <prop key="getTodasRespuestas.htm">controladoraResponderAsesoria</prop>
+                <prop key="getRespuestaAsesoria.htm">controladoraAgregarRespuesta</prop>
+                <prop key="getRespuestaAsignatura.htm">controladoraAgregarRespuesta</prop>
+                <prop key="getTodasRespuestas.htm">controladoraAgregarRespuesta</prop>
                 <prop key="agregarRespuesta.htm">controladoraAgregarRespuesta</prop>
+                <prop key="getDetallesAsesoria.htm">controladoraAgregarRespuesta</prop>
                         
             </props>
         </property>
@@ -102,7 +103,6 @@
     <bean name="controladoraListarPublicaciones" class="Controladoras.ControladoraEstudiante.controladoraListarPublicaciones"/>
     <bean name="controladoraPerfilUsuario" class="Controladoras.ControladoraAdmin.controladoraPerfilUsuario"/>
     <bean name="controladoraMasDetallesPublicaciones" class="Controladoras.ControladoraEstudiante.controladoraMasDetallesPublicaciones"/>
-    <bean name="controladoraResponderAsesoria" class="Controladoras.ControladoraMonitor.controladoraResponderAsesoria"/>
     <bean name="controladoraSolicitarAsesoria" class="Controladoras.ControladoraEstudiante.controladoraSolicitarAsesoria"/>
     <bean name="controladoraAgregarRespuesta" class="Controladoras.ControladoraMonitor.controladoraAgregarRespuesta"/>
     <bean name="controladoraGetAsesorias" class="Controladoras.ControladoraMonitor.controladoraGetAsesorias"/>

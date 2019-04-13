@@ -37,10 +37,10 @@ public class CRUDRespuestaAsesoria {
      * @return retorna un valor entero, si es 0 es que hubo algun error
      *                                  si es 1 es que fue correcto
      */
-    public int IngresarRespuestaAsesoria(int idAsesoria,int codigoMonitor, Date fechaRespuesta, Time hora) {
-        RespuestaAsesoria nuevaasesoria = new RespuestaAsesoria(idAsesoria,codigoMonitor, fechaRespuesta, hora);
-        this.sql = "insert into respuestaasesoria(idAsesoria,codigoMonitor,fechaRespuesta,tema) values ("
-                + nuevaasesoria.getIdAsesoria()+ ","+'"' + nuevaasesoria.getCodigoMonitor()+ '"'+","+'"' + nuevaasesoria.getFechaRespuesta()+ '"'+","+'"'+nuevaasesoria.getHora()+'"' +");";
+    public int IngresarRespuestaAsesoria(int idAsesoria,int codigoMonitor, String fechaRespuesta, Time hora) {
+        RespuestaAsesoria nuevaasesoria = new RespuestaAsesoria(idAsesoria,codigoMonitor, null, hora);
+        this.sql = "insert into respuestaasesoria(idAsesoria,codigoMonitor,fechaRespuesta,hora) values ("
+                + nuevaasesoria.getIdAsesoria()+ ","+'"' + nuevaasesoria.getCodigoMonitor()+ '"'+","+'"' + fechaRespuesta+ '"'+","+'"'+nuevaasesoria.getHora()+'"' +");";
         int resul = this.jdbcTemplate.update(sql);
         return resul;
     }
@@ -92,7 +92,18 @@ public class CRUDRespuestaAsesoria {
      * @return lista con todas las respuestas asesorias registrada en el sistema
      */
     public List consultarTodas() {
-        this.sql = "select * from respuestaasesoria inner join estudiante on codigoMonitor=codigo order by idRespuesta desc";
+        this.sql = "select * from respuestaasesoria inner join estudiante on codigoMonitor=codigo order by idRespuesta";
+        List datos = this.jdbcTemplate.queryForList(sql);
+        return datos;
+    }
+    
+     /**
+     * Método para generar un reporte con una respuesta que fue dada por el monitor
+     * @param idAsesoria el identificador de la asesoria propia a consultar
+     * @return lista con todas las respuestas asesorias registrada en el sistema
+     */
+    public List consultarIdConMonitor(int idAsesoria) {
+        this.sql = "select * from respuestaasesoria inner join estudiante on codigoMonitor=codigo where idAsesoria="+idAsesoria+";";
         List datos = this.jdbcTemplate.queryForList(sql);
         return datos;
     }

@@ -5,17 +5,10 @@
  */
 package Controladoras.ControladoraMonitor;
 
-import Modelos.CRUDEntidades.CRUDAsesoria;
 import Modelos.CRUDEntidades.CRUDRespuestaAsesoria;
-import Modelos.OperacionesEstudianteMonitor.OperacionResponderInquietud;
+import Modelos.Entidades.RespuestaAsesoria;
 import java.sql.Time;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -35,34 +28,52 @@ public class controladoraAgregarRespuesta {
         this.respuestaAsesorias= new CRUDRespuestaAsesoria();
     }
     
-    @RequestMapping(value = "agregarRespuesta.htm", method = RequestMethod.GET,headers="Accept=application/json")
+    @RequestMapping(value = "agregarRespuesta.htm", method = RequestMethod.GET)
     public ModelAndView home(HttpServletRequest request) {
-        Date format = new Date();
-        Date time = new Date();
-        Time tiempo= new Time(1);
+        
         int idInquietud = Integer.parseInt(request.getParameter("idAsesoria"));
         int codigoEstudiante = Integer.parseInt(request.getParameter("codigoMonitor"));
         //String asignatura = request.getParameter("asignatura");
         String fecha = request.getParameter("fecha");
         String hora = request.getParameter("hora");
-        try {
-            format = new SimpleDateFormat("yyyy-mm-dd").parse(fecha);
-            time = new SimpleDateFormat("hh:mm:ss").parse(hora);
-            Calendar calendar = Calendar.getInstance();
-            calendar.setTimeInMillis(time.getTime());
-            tiempo.setTime(calendar.getTimeInMillis());
-            
-        } catch (ParseException ex) {
-            Logger.getLogger(controladoraResponderAsesoria.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        int respuesta = respuestaAsesorias.IngresarRespuestaAsesoria(idInquietud, codigoEstudiante, format, tiempo);
+        Time horaRespuesta = new Time(Integer.parseInt(hora.substring(0, 2)), Integer.parseInt(hora.substring(3, 5)), 0);
+        int respuesta = respuestaAsesorias.IngresarRespuestaAsesoria(idInquietud, codigoEstudiante, fecha, horaRespuesta);
         ModelAndView def= new ModelAndView();
-        def.setViewName("Respuesta Agregar Respuesta");
-        def.addObject("respuesta",respuesta);
+        def.setViewName("respuestaResponderAsesoria");
+        def.addObject("respuestas",respuesta);
        
         return def;
     }
     
+    @RequestMapping(value = "getDetallesAsesoria.htm", method = RequestMethod.GET)
+    public ModelAndView getMasDetalles(HttpServletRequest request){
+        int idAsesoria=Integer.parseInt(request.getParameter("idAsesoria"));
+        List respuesta=respuestaAsesorias.consultarIdConMonitor(idAsesoria);
+        ModelAndView def= new ModelAndView();
+        def.setViewName("respuestaMasDetalles");
+        def.addObject("respuestas",respuesta);
+       
+        return def;
+    }
     
+    @RequestMapping(value = "getRespuestaAsesoria.htm", method = RequestMethod.GET)
+    public RespuestaAsesoria getRespuestaId(HttpServletRequest request) {
+        int idRespuesta = Integer.parseInt(request.getParameter("idAsesoria"));
+        RespuestaAsesoria respuesta = respuestaAsesorias.consultaruna(idRespuesta);
+        return respuesta;
+    }
+
+    @RequestMapping(value = "getRespuestaAsignatura.htm", method = RequestMethod.GET,headers="Accept=application/json")
+    public RespuestaAsesoria getRespuestaAsignatura(HttpServletRequest request) {
+        String asignatura = request.getParameter("asignatura");
+        RespuestaAsesoria respuesta = respuestaAsesorias.consultarUnaPorAsignatura(asignatura);
+        return respuesta;
+    }
+
+    @RequestMapping(value = "getTodasRespuestas.htm", method = RequestMethod.GET,headers="Accept=application/json")
+    public List getTodas() {
+        List respuest = respuestaAsesorias.consultarTodas();
+        return respuest;
+    }
     
 }

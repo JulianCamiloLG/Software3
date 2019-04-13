@@ -89,7 +89,7 @@ public class CRUDAsesoria {
     }
 
     public List consultarunaEstudiante(int codigoEstudiante) {
-        this.sql = "select * from bemonitorfinal.asesoria inner join bemonitorfinal.asignatura on codigoAsignatura=codigo where codigoEstudiante="+1701310061+"  order by idasesoria;";
+        this.sql = "select * from bemonitorfinal.asesoria inner join bemonitorfinal.asignatura on codigoAsignatura=codigo where codigoEstudiante="+codigoEstudiante+"  order by idasesoria;";
         List datos = this.jdbcTemplate.queryForList(sql);
         return datos;
     }

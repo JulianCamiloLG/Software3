@@ -13,6 +13,7 @@
         <json:object>
             <json:property name="idasesoria" value="${respuestas.idasesoria}"/>
             <json:property name="codigoAsignatura" value="${respuestas.codigoAsignatura}"/>
+            <json:property name="nombreAsignatura" value="${respuestas.nombre}"/>
             <json:property name="tema" value="${respuestas.tema}"/>
             <json:property name="fechaPublicacion" value="${respuestas.fechaPublicacion}"/>
             <json:property name="estudiante" value="${respuestas.codigoEstudiante}"/>

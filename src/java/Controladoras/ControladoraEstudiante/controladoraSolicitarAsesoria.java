@@ -8,8 +8,6 @@ package Controladoras.ControladoraEstudiante;
 import Modelos.CRUDEntidades.CRUDAsesoria;
 import Modelos.Entidades.Asesoria;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.servlet.http.HttpServletRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -53,7 +51,7 @@ public class controladoraSolicitarAsesoria {
         return def;
     }
     
-    @RequestMapping(value = "getAsesoriaEstudiante.htm", method = RequestMethod.GET,headers="Accept=application/json")
+    @RequestMapping(value = "getAsesoriaEstudiante.htm", method = RequestMethod.GET)
     public ModelAndView getAsesoriasEstudiante(HttpServletRequest request){
         int codigoEstudiante=Integer.parseInt(request.getParameter("codigoEstudiante"));
         List respuesta = asesorias.consultarunaEstudiante(codigoEstudiante);
